@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="underlines"
+        android:summary=""
+        android:title="@string/underline" />
+
+    <ListPreference
+        android:defaultValue="20"
+        android:dialogTitle="@string/font_size"
+        android:entries="@array/fint_size_list"
+        android:entryValues="@array/fint_size_value_list"
+        android:key="fontSize"
+        android:summary=""
+        android:title="@string/font_size" />
+
+</PreferenceScreen>

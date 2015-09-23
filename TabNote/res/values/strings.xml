@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TabNote</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_settings">Settings</string>
+    <string name="image">image</string>
+    <string name="settings_tab">Settings tab</string>
+    <string name="preview">Preview</string>
+    <string name="tab_title">Tab title</string>
+    <string name="color">Color</string>
+    <string name="add_tab">Add tab</string>
+    <string name="delete">Delete</string>
+    <string name="tab_menu">Tab menu</string>
+    <string name="confirm_delete">Are you sure you want to delete this tab?</string>
+    <string name="confirm">Confirm</string>
+    <string name="to_left">To left</string>
+    <string name="to_right">To right</string>
+    <string name="output">output</string>
+    <string name="has_been_saved">has been saved</string>
+    <string name="double_tap_description">Please double tap for edit</string>
+    <string name="underline">Underline</string>
+    <string name="font_size">Font Size</string>
+   
+    <string name="extra_large">Extra Large</string>
+    <string name="large">Large</string>
+    <string name="medium">Medium</string>
+    <string name="small">Small</string>
+    <string name="extra_small">Extra Small</string>
+
+</resources>

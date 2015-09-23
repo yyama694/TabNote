@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="fint_size_list">
+        <item>@string/extra_large</item>
+        <item>@string/large</item>
+        <item>@string/medium</item>
+        <item>@string/small</item>
+        <item>@string/extra_small</item>
+    </string-array>
+    <string-array name="fint_size_value_list">
+        <item>30</item>
+        <item>25</item>
+        <item>20</item>
+        <item>15</item>
+        <item>10</item>
+    </string-array>
+
+</resources>
