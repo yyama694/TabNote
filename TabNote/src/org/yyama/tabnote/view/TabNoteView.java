@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
@@ -29,6 +30,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+/**
+ * @author fukuchi
+ *
+ */
 public class TabNoteView {
 	private static MainActivity act;
 	private static LinearLayout tabLL;
@@ -100,9 +105,9 @@ public class TabNoteView {
 			if (tab.isActivate) {
 				// タブの下線
 				underLineImg.setImageResource(tab.tabUnderLineImageId);
-				btn.setAlpha(1.0f);
+				setAlphaForView(btn,1.0f);
 			} else {
-				btn.setAlpha(0.6f);
+				setAlphaForView(btn,0.6f);
 			}
 			tabLL.addView(btn);
 			btn.setOnClickListener(act);
@@ -115,7 +120,7 @@ public class TabNoteView {
 		btn.setBackgroundResource(R.drawable.tab_add);
 		btn.setOnClickListener(act);
 		btn.setTag("addTab");
-		btn.setAlpha(0.6f);
+		setAlphaForView(btn,0.6f);
 		tabLL.addView(btn);
 
 		// タブのスクロール
@@ -335,5 +340,16 @@ public class TabNoteView {
 		// 広告リクエストを行って adView を読み込む
 		adView.loadAd(adRequest);
 	}
-
+	
+	/**
+	 * android2.3でsetAlphaが使用できないので、回避用のメソッド
+	 * @param v
+	 * @param alpha
+	 */
+	private static void setAlphaForView(View v, float alpha) {
+		AlphaAnimation animation = new AlphaAnimation(alpha, alpha);
+		animation.setDuration(0);
+		animation.setFillAfter(true);
+		v.startAnimation(animation);
+	}
 }

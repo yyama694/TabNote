@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
-import android.preference.PreferenceFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 
 public class AppSettingPrefActivity extends AppCompatActivity {
@@ -15,8 +17,10 @@ public class AppSettingPrefActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// PrefFragment‚ÌŒÄ‚Ño‚µ
-		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, new PrefFragment()).commit();
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.replace(android.R.id.content, new PrefFragment());
+		ft.commit();
 	}
 
 	// İ’è‰æ–Ê‚ÌPrefFragmentƒNƒ‰ƒX
