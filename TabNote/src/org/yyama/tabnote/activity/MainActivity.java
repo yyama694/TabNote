@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		Log.d("yyama", "onDoubleTap!");
+//		Log.d("yyama", "onDoubleTap!");
 		TabNoteView.toEditMoge();
 		return false;
 	}

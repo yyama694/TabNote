@@ -19,10 +19,10 @@ public class TabNoteService {
 		if (list.size() == 0) {
 			// Tab‚ªDB‚É“o˜^‚³‚ê‚Ä‚¢‚È‚¢ê‡
 			Tab tab = new Tab();
-			tab.title = "title";
+			tab.title = act.getString(R.string.tab_title);
 			tab.isActivate = true;
-			tab.tabImageId = R.drawable.tab_blue_active;
-			tab.tabUnderLineImageId = R.drawable.under_tab_line_blue;
+			tab.tabImageId = R.drawable.tab_red_active;
+			tab.tabUnderLineImageId = R.drawable.under_tab_line_red;
 			tab.value = act.getString(R.string.double_tap_description);
 			tab.id = TblTabNoteDao.insert(tab, 0);
 			list.add(tab);
@@ -33,12 +33,11 @@ public class TabNoteService {
 
 	public static List<Integer> getColorIdAllKind() {
 		List<Integer> list = new ArrayList<>();
-		list.add(R.drawable.tab_blue_active);
-		list.add(R.drawable.tab_green_active);
-		list.add(R.drawable.tab_orange_active);
-		list.add(R.drawable.tab_purple_active);
 		list.add(R.drawable.tab_red_active);
-		list.add(R.drawable.tab_yellow_active);
+		list.add(R.drawable.tab_orange_active);
+		list.add(R.drawable.tab_green_active);
+		list.add(R.drawable.tab_blue_active);
+		list.add(R.drawable.tab_purple_active);
 		return list;
 	}
 
@@ -54,8 +53,6 @@ public class TabNoteService {
 			return R.drawable.under_tab_line_purple;
 		case R.drawable.tab_red_active:
 			return R.drawable.under_tab_line_red;
-		case R.drawable.tab_yellow_active:
-			return R.drawable.under_tab_line_yellow;
 		default:
 			return 0;
 		}
@@ -96,7 +93,7 @@ public class TabNoteService {
 	}
 
 	public static Tab addTab(String value) {
-		return addTab(R.drawable.tab_blue_active, "", value);
+		return addTab(R.drawable.tab_red_active, "", value);
 	}
 	public static Tab addTab(int ColorId, String title) {
 		return addTab(ColorId, title, "");

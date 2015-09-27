@@ -2,6 +2,7 @@ package org.yyama.tabnote.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.yyama.tabnote.R;
 import org.yyama.tabnote.activity.MainActivity;
@@ -12,9 +13,14 @@ import org.yyama.tabnote.model.Tab;
 import org.yyama.tabnote.model.TabNote;
 import org.yyama.tabnote.service.TabNoteService;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -31,10 +37,29 @@ public class TabNoteView {
 	private static ViewPager vp;
 	private static MainPagerAdapter mpa;
 
+	// 広告表示フラグ
+	private static boolean showAd = false;
+
 	private TabNoteView() {
 	}
 
 	public static void init(MainActivity act) {
+		// 広告表示するかどうかの決定
+		int i = PreferenceManager.getDefaultSharedPreferences(act).getInt(
+				"showCount", 0);
+		if (i >= 5) {
+			if (new Random().nextInt(2) == 0) {
+				showAd = true;
+				Log.d("yyama", "広告を表示します。");
+			} else {
+				showAd = false;
+				Log.d("yyama", "広告を表示しません。");
+			}
+		} else {
+			Log.d("yyama", "起動回数を満たさないため、広告を表示しません。回数=" + i);
+			PreferenceManager.getDefaultSharedPreferences(act).edit()
+					.putInt("showCount", i + 1).commit();
+		}
 		TabNoteView.act = act;
 		tabLL = (LinearLayout) act.findViewById(R.id.TabLinearLayout);
 		underLineImg = (ImageView) act.findViewById(R.id.under_line);
@@ -43,7 +68,7 @@ public class TabNoteView {
 		// メインビューの設定
 		setMainViewPager();
 		// アクティブタブの設定
-		int i = TblTabActiveDao.getActiveNum();
+		i = TblTabActiveDao.getActiveNum();
 		TabNoteService.unActivateAll();
 		TabNote.tabs.get(i).isActivate = true;
 
@@ -77,7 +102,7 @@ public class TabNoteView {
 				underLineImg.setImageResource(tab.tabUnderLineImageId);
 				btn.setAlpha(1.0f);
 			} else {
-				btn.setAlpha(0.7f);
+				btn.setAlpha(0.6f);
 			}
 			tabLL.addView(btn);
 			btn.setOnClickListener(act);
@@ -90,6 +115,7 @@ public class TabNoteView {
 		btn.setBackgroundResource(R.drawable.tab_add);
 		btn.setOnClickListener(act);
 		btn.setTag("addTab");
+		btn.setAlpha(0.6f);
 		tabLL.addView(btn);
 
 		// タブのスクロール
@@ -116,7 +142,7 @@ public class TabNoteView {
 			LineEditTextView ev = (LineEditTextView) ll
 					.findViewById(R.id.edit_in_page_view);
 
-			// 各種設定値の保存
+			// 各種設定値のセット
 			setPreference(tv, ev);
 
 			tv.setText(tab.value);
@@ -130,6 +156,9 @@ public class TabNoteView {
 			}
 			((LineEditTextView) ll.findViewById(R.id.edit_in_page_view))
 					.addTextChangedListener(act);
+			if (showAd) {
+				addSetting(ll);
+			}
 			list.add(ll);
 		}
 		MainPagerAdapter mpa = new MainPagerAdapter();
@@ -154,6 +183,11 @@ public class TabNoteView {
 		// 各種設定値の保存
 		setPreference(tv, ev);
 
+		// 広告の設定
+		if (showAd) {
+			addSetting(ll);
+		}
+
 		mpa.addView(ll);
 		mpa.notifyDataSetChanged();
 		vp.setCurrentItem(TabNote.getActiveNum());
@@ -171,13 +205,6 @@ public class TabNoteView {
 		tv.fontSize = Integer.parseInt(PreferenceManager
 				.getDefaultSharedPreferences(act).getString("fontSize", "20"));
 
-	}
-
-	@Deprecated
-	public static void removeMainViewPager(int i) {
-		// 　うまく消えてくれないのでこのメソッドは使用しないでください。
-		mpa.removeView(i);
-		mpa.notifyDataSetChanged();
 	}
 
 	private static Button getNewTabBtn() {
@@ -210,6 +237,10 @@ public class TabNoteView {
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		manager.toggleSoftInput(1, InputMethodManager.SHOW_IMPLICIT);
 
+		// 広告を非表示にする
+		LinearLayout layout = (LinearLayout) ll.findViewById(R.id.adSpace);
+		layout.setVisibility(View.GONE);
+
 		// 編集中フラグをセット
 		TabNote.tabs.get(vp.getCurrentItem()).isReadMode = false;
 	}
@@ -220,6 +251,9 @@ public class TabNoteView {
 				.setVisibility(View.VISIBLE);
 		((LineEditTextView) ll.findViewById(R.id.edit_in_page_view))
 				.setVisibility(View.GONE);
+		// 広告を表示する
+		LinearLayout layout = (LinearLayout) ll.findViewById(R.id.adSpace);
+		layout.setVisibility(View.VISIBLE);
 		// 編集中フラグをセット
 		TabNote.tabs.get(vp.getCurrentItem()).isReadMode = true;
 	}
@@ -277,4 +311,29 @@ public class TabNoteView {
 					Toast.LENGTH_SHORT).show();
 		}
 	}
+
+	private static void addSetting(View v) {
+		Log.d("yyama", "addSetting!!");
+		AdView adView;
+		// adView を作成する
+		adView = new AdView(act);
+		adView.setAdUnitId("ca-app-pub-2505812570403600/1091357771");
+		adView.setAdSize(AdSize.BANNER);
+
+		// 属性 android:id="@+id/mainLayout" が与えられているものとして
+		// LinearLayout をルックアップする
+		LinearLayout layout = (LinearLayout) v.findViewById(R.id.adSpace);
+
+		// adView を追加する
+		layout.addView(adView);
+
+		// 一般的なリクエストを行う
+		AdRequest adRequest = new AdRequest.Builder().addTestDevice(
+				"F3B1B2779DEF816F9B31AA6C6DC57C3F").build();
+		// AdRequest adRequest = new AdRequest.Builder().build();
+
+		// 広告リクエストを行って adView を読み込む
+		adView.loadAd(adRequest);
+	}
+
 }
