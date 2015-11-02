@@ -43,7 +43,7 @@ public class AppSettingPrefActivity extends AppCompatActivity {
 			lp.setSummary(lp.getEntry());
 
 			// ƒ^ƒu‚ÌÄ•`‰æ
-			TabNoteView.draw(false);
+//			TabNoteView.draw(false);
 			// ViewPager‚ÌÄ•`‰æ
 			TabNoteView.setMainViewPager();
 		}

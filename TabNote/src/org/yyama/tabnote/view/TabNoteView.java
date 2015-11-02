@@ -79,6 +79,8 @@ public class TabNoteView {
 	}
 
 	public static void draw(boolean scrollMainView) {
+		Log.d("yyama", "draw");
+
 		// タブのサイズを取得しておく（タブスクロールのため）
 		int[] tabWidths = new int[tabLL.getChildCount()];
 		int hsvWidth = 0;
@@ -87,7 +89,7 @@ public class TabNoteView {
 			for (int i = 0; i < tabWidths.length - 1; i++) {
 				tabWidths[i] = tabLL.getChildAt(i).getWidth();
 				// allWidth += tabLL.getChildAt(i).getWidth();
-				Log.d("yyama", "width:" + i + ":" + tabWidths[i]);
+				// Log.d("yyama", "width:" + i + ":" + tabWidths[i]);
 			}
 			hsvWidth = hsv.getWidth();
 			// Log.d("yyama", "tabWidth:" + tabWidth);
@@ -97,12 +99,12 @@ public class TabNoteView {
 		tabLL.removeAllViews();
 
 		// タブサイズの取得
-//		int size = Integer.parseInt(PreferenceManager
-//				.getDefaultSharedPreferences(act).getString("tabSize", "20"));
-//		int btnWidth = act.getResources().getDimensionPixelSize(
-//				R.dimen.width320dp);
-//		int btnHeight = act.getResources().getDimensionPixelSize(
-//				R.dimen.height70dp);
+		// int size = Integer.parseInt(PreferenceManager
+		// .getDefaultSharedPreferences(act).getString("tabSize", "20"));
+		// int btnWidth = act.getResources().getDimensionPixelSize(
+		// R.dimen.width320dp);
+		// int btnHeight = act.getResources().getDimensionPixelSize(
+		// R.dimen.height70dp);
 
 		Button btn;
 		// 通常タブ
@@ -110,10 +112,10 @@ public class TabNoteView {
 			btn = getNewTabBtn();
 			// タブのサイズを設定(未実装)
 			// btn.setWidth(btnWidth);
-//			btn.setHeight(btnHeight);
+			// btn.setHeight(btnHeight);
 
 			btn.setBackgroundResource(tab.tabImageId);
-//			btn.setTextSize(size);
+			// btn.setTextSize(size);
 			btn.setText(tab.title);
 			btn.setTag(tab);
 			if (tab.isActivate) {
@@ -136,9 +138,9 @@ public class TabNoteView {
 		btn.setBackgroundResource(R.drawable.tab_add);
 		btn.setOnClickListener(act);
 		btn.setTag("addTab");
-//		btn.setTextSize(size);
-//		btn.setHeight(btnHeight);
-//		btn.setWidth((int) (btnHeight * 1.18));
+		// btn.setTextSize(size);
+		// btn.setHeight(btnHeight);
+		// btn.setWidth((int) (btnHeight * 1.18));
 		setAlphaForView(btn, 0.6f);
 		tabLL.addView(btn);
 
@@ -146,7 +148,7 @@ public class TabNoteView {
 		if (tabWidths.length != 0 && tabWidths[0] != 0) {
 			int activeNum = TabNote.getActiveNum();
 			int width = 0;
-			for (int i = 0; i <= activeNum-1; i++) {
+			for (int i = 0; i <= activeNum - 1; i++) {
 				width += tabWidths[i];
 			}
 			hsv.smoothScrollTo(width - hsvWidth / 2 + tabWidths[activeNum] / 2,
@@ -156,6 +158,28 @@ public class TabNoteView {
 		// メインビューのスクロール
 		if (scrollMainView) {
 			vp.setCurrentItem(TabNote.getActiveNum());
+		}
+	}
+
+	public static void tabScroll() {
+		// タブのサイズを取得しておく（タブスクロールのため）
+		int[] tabWidths = new int[tabLL.getChildCount()];
+		int hsvWidth = 0;
+		if (tabLL.getChildAt(0) != null) {
+			for (int i = 0; i < tabWidths.length - 1; i++) {
+				tabWidths[i] = tabLL.getChildAt(i).getWidth();
+			}
+			hsvWidth = hsv.getWidth();
+		}
+		// タブのスクロール
+		if (tabWidths.length != 0 && tabWidths[0] != 0) {
+			int activeNum = TabNote.getActiveNum();
+			int width = 0;
+			for (int i = 0; i <= activeNum - 1; i++) {
+				width += tabWidths[i];
+			}
+			hsv.smoothScrollTo(width - hsvWidth / 2 + tabWidths[activeNum] / 2,
+					0);
 		}
 	}
 

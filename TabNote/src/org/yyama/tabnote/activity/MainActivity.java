@@ -31,11 +31,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.inputmethod.InputMethodManager;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener,
 		OnLongClickListener, OnPageChangeListener, OnGestureListener,
-		OnDoubleTapListener, OnTouchListener, TextWatcher {
+		OnDoubleTapListener, OnTouchListener, TextWatcher, OnGlobalLayoutListener {
 
 	private GestureDetector gd;
 
@@ -48,11 +50,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
+//		Log.d("yyama", "onWindowFocusChanged");
 		super.onWindowFocusChanged(hasFocus);
-		if (firstDraw) {
-			firstDraw = false;
-			TabNoteView.draw(false);
-		}
 	}
 
 	// 一番最初の起動時にonWindowFocusChanged内でdrawするためのフラグ
@@ -73,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		viewPager.setOnTouchListener(this);
 		gd = new GestureDetector(viewPager.getContext(), this);
 
+		// 起動時、タブが自動スクロールするための細工
+		ViewTreeObserver observer = findViewById(R.id.TabLinearLayout).getViewTreeObserver();
+		observer.addOnGlobalLayoutListener(this);
+		
+		
 		TabNoteView.draw(true);
 		onNewIntent(getIntent());
 	}
@@ -280,5 +284,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 	@Override
 	public void afterTextChanged(Editable s) {
+	}
+	
+	// 起動時、タブが自動スクロールするための細工
+	@Override
+	public void onGlobalLayout() {
+		// TODO Auto-generated method stub
+		if (firstDraw) {
+			firstDraw = false;
+			TabNoteView.tabScroll();
+		}
+
 	}
 }
