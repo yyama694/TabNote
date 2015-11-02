@@ -41,6 +41,9 @@ public class AppSettingPrefActivity extends AppCompatActivity {
 			ListPreference lp = (ListPreference) getPreferenceScreen()
 					.findPreference("fontSize");
 			lp.setSummary(lp.getEntry());
+
+			// ƒ^ƒu‚ÌÄ•`‰æ
+			TabNoteView.draw(false);
 			// ViewPager‚ÌÄ•`‰æ
 			TabNoteView.setMainViewPager();
 		}

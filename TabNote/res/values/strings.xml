@@ -20,12 +20,6 @@
     <string name="has_been_saved">has been saved</string>
     <string name="double_tap_description">Please double tap for edit</string>
     <string name="underline">Underline</string>
-    <string name="font_size">Font Size</string>
-   
-    <string name="extra_large">Extra Large</string>
-    <string name="large">Large</string>
-    <string name="medium">Medium</string>
-    <string name="small">Small</string>
-    <string name="extra_small">Extra Small</string>
+    <string name="font_size">Font size</string>
 
 </resources>

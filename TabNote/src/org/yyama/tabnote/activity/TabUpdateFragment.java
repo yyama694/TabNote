@@ -113,7 +113,7 @@ public class TabUpdateFragment extends DialogFragment implements
 				// DB‚ğ•ÏX”‚·‚é
 				TblTabNoteDao.update(tab);
 			}
-			TabNoteView.draw();
+			TabNoteView.draw(true);
 			dismiss();
 		default:
 			break;

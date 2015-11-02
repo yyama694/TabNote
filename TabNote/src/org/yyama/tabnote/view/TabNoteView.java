@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 /**
  * @author fukuchi
- *
+ * 
  */
 public class TabNoteView {
 	private static MainActivity act;
@@ -55,10 +55,10 @@ public class TabNoteView {
 		if (i >= 5) {
 			if (new Random().nextInt(2) == 0) {
 				showAd = true;
-				Log.d("yyama", "広告を表示します。");
+				// Log.d("yyama", "広告を表示します。");
 			} else {
 				showAd = false;
-				Log.d("yyama", "広告を表示しません。");
+				// Log.d("yyama", "広告を表示しません。");
 			}
 		} else {
 			Log.d("yyama", "起動回数を満たさないため、広告を表示しません。回数=" + i);
@@ -76,43 +76,59 @@ public class TabNoteView {
 		i = TblTabActiveDao.getActiveNum();
 		TabNoteService.unActivateAll();
 		TabNote.tabs.get(i).isActivate = true;
-
-	}
-
-	public static void draw() {
-		draw(true);
 	}
 
 	public static void draw(boolean scrollMainView) {
 		// タブのサイズを取得しておく（タブスクロールのため）
-		int tabWidth = 0;
+		int[] tabWidths = new int[tabLL.getChildCount()];
 		int hsvWidth = 0;
+		// int allWidth = 0;
 		if (tabLL.getChildAt(0) != null) {
-			tabWidth = tabLL.getChildAt(0).getWidth();
+			for (int i = 0; i < tabWidths.length - 1; i++) {
+				tabWidths[i] = tabLL.getChildAt(i).getWidth();
+				// allWidth += tabLL.getChildAt(i).getWidth();
+				Log.d("yyama", "width:" + i + ":" + tabWidths[i]);
+			}
 			hsvWidth = hsv.getWidth();
+			// Log.d("yyama", "tabWidth:" + tabWidth);
+			// Log.d("yyama", "hsvWidth:" + hsvWidth);
 		}
-
 		// クリア
 		tabLL.removeAllViews();
+
+		// タブサイズの取得
+//		int size = Integer.parseInt(PreferenceManager
+//				.getDefaultSharedPreferences(act).getString("tabSize", "20"));
+//		int btnWidth = act.getResources().getDimensionPixelSize(
+//				R.dimen.width320dp);
+//		int btnHeight = act.getResources().getDimensionPixelSize(
+//				R.dimen.height70dp);
 
 		Button btn;
 		// 通常タブ
 		for (Tab tab : TabNote.tabs) {
 			btn = getNewTabBtn();
+			// タブのサイズを設定(未実装)
+			// btn.setWidth(btnWidth);
+//			btn.setHeight(btnHeight);
+
 			btn.setBackgroundResource(tab.tabImageId);
+//			btn.setTextSize(size);
 			btn.setText(tab.title);
 			btn.setTag(tab);
 			if (tab.isActivate) {
 				// タブの下線
 				underLineImg.setImageResource(tab.tabUnderLineImageId);
-				setAlphaForView(btn,1.0f);
+				setAlphaForView(btn, 1.0f);
 			} else {
-				setAlphaForView(btn,0.6f);
+				setAlphaForView(btn, 0.6f);
 			}
+
 			tabLL.addView(btn);
 			btn.setOnClickListener(act);
 			btn.setOnLongClickListener(act);
 			btn.setTag(tab);
+
 		}
 
 		// タブ追加タブ
@@ -120,13 +136,21 @@ public class TabNoteView {
 		btn.setBackgroundResource(R.drawable.tab_add);
 		btn.setOnClickListener(act);
 		btn.setTag("addTab");
-		setAlphaForView(btn,0.6f);
+//		btn.setTextSize(size);
+//		btn.setHeight(btnHeight);
+//		btn.setWidth((int) (btnHeight * 1.18));
+		setAlphaForView(btn, 0.6f);
 		tabLL.addView(btn);
 
 		// タブのスクロール
-		if (tabWidth != 0) {
-			hsv.smoothScrollTo((TabNote.getActiveNum() * tabWidth) - hsvWidth
-					/ 2 + tabWidth / 2, 0);
+		if (tabWidths.length != 0 && tabWidths[0] != 0) {
+			int activeNum = TabNote.getActiveNum();
+			int width = 0;
+			for (int i = 0; i <= activeNum-1; i++) {
+				width += tabWidths[i];
+			}
+			hsv.smoothScrollTo(width - hsvWidth / 2 + tabWidths[activeNum] / 2,
+					0);
 		}
 
 		// メインビューのスクロール
@@ -340,9 +364,10 @@ public class TabNoteView {
 		// 広告リクエストを行って adView を読み込む
 		adView.loadAd(adRequest);
 	}
-	
+
 	/**
 	 * android2.3でsetAlphaが使用できないので、回避用のメソッド
+	 * 
 	 * @param v
 	 * @param alpha
 	 */

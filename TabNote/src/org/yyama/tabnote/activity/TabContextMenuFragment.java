@@ -88,7 +88,7 @@ public class TabContextMenuFragment extends DialogFragment implements
 			TabNoteService.toLeft(tab);
 			TabNoteView.setMainViewPager();
 			TblTabNoteDao.updateOrder();
-			TabNoteView.draw();
+			TabNoteView.draw(true);
 			dismiss();
 			break;
 		case R.id.tab_to_right:
@@ -96,7 +96,7 @@ public class TabContextMenuFragment extends DialogFragment implements
 			TabNoteService.toRight(tab);
 			TabNoteView.setMainViewPager();
 			TblTabNoteDao.updateOrder();
-			TabNoteView.draw();
+			TabNoteView.draw(true);
 			dismiss();
 			break;
 		case R.id.tab_share:
@@ -121,7 +121,7 @@ public class TabContextMenuFragment extends DialogFragment implements
 			TabNoteService.delete(tab);
 			TabNoteView.saveValueAll();
 			TabNoteView.setMainViewPager();
-			TabNoteView.draw();
+			TabNoteView.draw(true);
 			break;
 		default:
 			break;

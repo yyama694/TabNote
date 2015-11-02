@@ -21,8 +21,8 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040009;
     }
     public static final class array {
-        public static final int fint_size_list=0x7f0e0000;
-        public static final int fint_size_value_list=0x7f0e0001;
+        public static final int font_size_list=0x7f0e0000;
+        public static final int font_size_value_list=0x7f0e0001;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -2223,15 +2223,13 @@ containing a value of this type.
  Default text size for action bar title.
          */
         public static final int abc_text_size_title_material_toolbar=0x7f090024;
-        /**  Default screen margins, per the Android Design guidelines. 
-
+        /** 
          Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
         public static final int activity_horizontal_margin=0x7f090047;
-        public static final int activity_vertical_margin=0x7f090048;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -2798,14 +2796,14 @@ containing a value of this type.
         public static final int decline=0x7f0c0018;
         public static final int delete=0x7f0c0041;
         public static final int double_tap_description=0x7f0c0049;
-        public static final int extra_large=0x7f0c004c;
-        public static final int extra_small=0x7f0c0050;
+        public static final int extra_large=0x7f0c004d;
+        public static final int extra_small=0x7f0c0051;
         public static final int font_size=0x7f0c004b;
         public static final int has_been_saved=0x7f0c0048;
         public static final int hello_world=0x7f0c0039;
         public static final int image=0x7f0c003b;
-        public static final int large=0x7f0c004d;
-        public static final int medium=0x7f0c004e;
+        public static final int large=0x7f0c004e;
+        public static final int medium=0x7f0c004f;
         public static final int next_button_label=0x7f0c0013;
         public static final int output=0x7f0c0047;
         public static final int preview=0x7f0c003d;
@@ -2813,7 +2811,7 @@ containing a value of this type.
         /**  Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] 
          */
         public static final int skip_button_label=0x7f0c0014;
-        public static final int small=0x7f0c004f;
+        public static final int small=0x7f0c0050;
         /**  Text to use when the number in a notification info is too large
          (greater than status_bar_notification_info_maxnum, defined in
          values/config.xml) and must be truncated. May need to be localized
@@ -2824,6 +2822,7 @@ containing a value of this type.
         public static final int store_picture_message=0x7f0c0016;
         public static final int store_picture_title=0x7f0c0015;
         public static final int tab_menu=0x7f0c0042;
+        public static final int tab_size=0x7f0c004c;
         public static final int tab_title=0x7f0c003e;
         public static final int to_left=0x7f0c0045;
         public static final int to_right=0x7f0c0046;

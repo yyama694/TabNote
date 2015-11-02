@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		viewPager.setOnTouchListener(this);
 		gd = new GestureDetector(viewPager.getContext(), this);
 
-		TabNoteView.draw();
+		TabNoteView.draw(true);
 		onNewIntent(getIntent());
 	}
 
@@ -135,7 +135,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		if (o instanceof Tab) {
 			TabNoteService.unActivateAll();
 			((Tab) o).isActivate = true;
-			TabNoteView.draw();
+			TabNoteView.draw(true);
+			// Log.d("yyama", "ボタンの幅は：" + v.getWidth());
+			// Log.d("yyama", "ボタンの高さは：" + v.getHeight());
+
 		}
 	}
 
@@ -164,18 +167,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int arg0) {
+	public void onPageScrollStateChanged(int state) {
+
 	}
 
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 	}
 
+	// ページ選択した際に、なぜか2回呼ばれる。要改善。
 	@Override
 	public void onPageSelected(int currentItem) {
+//		Log.d("yyama", "onPageSelected");
+//		Log.d("yyama", "currentItem:" + currentItem);
+
 		TabNoteService.unActivateAll();
 		TabNote.tabs.get(currentItem).isActivate = true;
-		TabNoteView.draw(false);
+		 TabNoteView.draw(false);
 		if (TabNote.tabs.get(currentItem).isReadMode) {
 			if (getCurrentFocus() != null) {
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -222,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-//		Log.d("yyama", "onDoubleTap!");
+		// Log.d("yyama", "onDoubleTap!");
 		TabNoteView.toEditMoge();
 		return false;
 	}
