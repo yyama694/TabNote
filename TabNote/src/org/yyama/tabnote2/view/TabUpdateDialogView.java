@@ -1,8 +1,8 @@
-package org.yyama.tabnote.view;
+package org.yyama.tabnote2.view;
 
-import org.yyama.tabnote.R;
-import org.yyama.tabnote.activity.MainActivity;
-import org.yyama.tabnote.model.Tab;
+import org.yyama.tabnote2.R;
+import org.yyama.tabnote2.activity.MainActivity;
+import org.yyama.tabnote2.model.Tab;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

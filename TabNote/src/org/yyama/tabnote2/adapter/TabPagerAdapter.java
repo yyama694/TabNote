@@ -1,4 +1,4 @@
-package org.yyama.tabnote.adapter;
+package org.yyama.tabnote2.adapter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package org.yyama.tabnote.constant;
+package org.yyama.tabnote2.constant;
 
 public class Constant {
 	public static final int FLG_TAB_ADD = 1;

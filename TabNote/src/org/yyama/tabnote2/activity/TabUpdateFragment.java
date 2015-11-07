@@ -1,15 +1,15 @@
-package org.yyama.tabnote.activity;
+package org.yyama.tabnote2.activity;
 
 import java.util.List;
 
-import org.yyama.tabnote.R;
-import org.yyama.tabnote.adapter.TabPagerAdapter;
-import org.yyama.tabnote.dao.TblTabNoteDao;
-import org.yyama.tabnote.model.Tab;
-import org.yyama.tabnote.model.TabNote;
-import org.yyama.tabnote.service.TabNoteService;
-import org.yyama.tabnote.view.TabNoteView;
-import org.yyama.tabnote.view.TabUpdateDialogView;
+import org.yyama.tabnote2.R;
+import org.yyama.tabnote2.adapter.TabPagerAdapter;
+import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.model.Tab;
+import org.yyama.tabnote2.model.TabNote;
+import org.yyama.tabnote2.service.TabNoteService;
+import org.yyama.tabnote2.view.TabNoteView;
+import org.yyama.tabnote2.view.TabUpdateDialogView;
 
 import android.app.Dialog;
 import android.content.Context;

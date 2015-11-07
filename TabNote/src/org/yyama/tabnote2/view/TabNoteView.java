@@ -1,17 +1,17 @@
-package org.yyama.tabnote.view;
+package org.yyama.tabnote2.view;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.yyama.tabnote.R;
-import org.yyama.tabnote.activity.MainActivity;
-import org.yyama.tabnote.adapter.MainPagerAdapter;
-import org.yyama.tabnote.dao.TblTabActiveDao;
-import org.yyama.tabnote.dao.TblTabNoteDao;
-import org.yyama.tabnote.model.Tab;
-import org.yyama.tabnote.model.TabNote;
-import org.yyama.tabnote.service.TabNoteService;
+import org.yyama.tabnote2.R;
+import org.yyama.tabnote2.activity.MainActivity;
+import org.yyama.tabnote2.adapter.MainPagerAdapter;
+import org.yyama.tabnote2.dao.TblTabActiveDao;
+import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.model.Tab;
+import org.yyama.tabnote2.model.TabNote;
+import org.yyama.tabnote2.service.TabNoteService;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;

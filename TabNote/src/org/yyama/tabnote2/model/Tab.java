@@ -1,4 +1,4 @@
-package org.yyama.tabnote.model;
+package org.yyama.tabnote2.model;
 
 import java.io.Serializable;
 

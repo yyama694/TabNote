@@ -1,4 +1,4 @@
-package org.yyama.tabnote.view;
+package org.yyama.tabnote2.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

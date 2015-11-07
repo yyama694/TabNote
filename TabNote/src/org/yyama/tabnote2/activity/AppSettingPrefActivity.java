@@ -1,7 +1,7 @@
-package org.yyama.tabnote.activity;
+package org.yyama.tabnote2.activity;
 
-import org.yyama.tabnote.R;
-import org.yyama.tabnote.view.TabNoteView;
+import org.yyama.tabnote2.R;
+import org.yyama.tabnote2.view.TabNoteView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="0dp"
     android:paddingTop="0dp"
-    tools:context="org.yyama.multicounter.MainActivity" >
+    tools:context="org.yyama.tabnote2.MainActivity" >
 
     <ScrollView
         android:layout_weight="1"
@@ -21,7 +21,7 @@
             android:padding="0dp"
             android:paddingTop="0dp" >
 
-            <org.yyama.tabnote.view.LineTextView
+            <org.yyama.tabnote2.view.LineTextView
                 android:id="@+id/text_in_page_view"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -30,7 +30,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 
-            <org.yyama.tabnote.view.LineEditTextView
+            <org.yyama.tabnote2.view.LineEditTextView
                 android:id="@+id/edit_in_page_view"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

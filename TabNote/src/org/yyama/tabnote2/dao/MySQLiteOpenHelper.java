@@ -1,6 +1,6 @@
-package org.yyama.tabnote.dao;
+package org.yyama.tabnote2.dao;
 
-import org.yyama.tabnote.constant.Constant;
+import org.yyama.tabnote2.constant.Constant;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
