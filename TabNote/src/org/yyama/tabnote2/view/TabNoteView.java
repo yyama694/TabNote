@@ -23,12 +23,14 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
 /**
@@ -213,7 +215,7 @@ public class TabNoteView {
 			if (showAd) {
 				addSetting(ll);
 			}
-			if(Build.VERSION.SDK_INT >=11){
+			if (Build.VERSION.SDK_INT >= 11) {
 				tv.setTextIsSelectable(true);
 			}
 			list.add(ll);
@@ -267,6 +269,12 @@ public class TabNoteView {
 	private static Button getNewTabBtn() {
 		Button btn = new Button(act);
 		btn.setTextColor(act.getResources().getColor(android.R.color.white));
+		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		MarginLayoutParams mlp = (MarginLayoutParams) lp;
+		mlp.setMargins(-1, 0, -1, 0);
+		// É}Å[ÉWÉìÇê›íË
+		btn.setLayoutParams(mlp);
 		return btn;
 	}
 
