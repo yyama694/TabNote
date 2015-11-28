@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import android.content.Context;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -211,6 +212,9 @@ public class TabNoteView {
 					.addTextChangedListener(act);
 			if (showAd) {
 				addSetting(ll);
+			}
+			if(Build.VERSION.SDK_INT >=11){
+				tv.setTextIsSelectable(true);
 			}
 			list.add(ll);
 		}
