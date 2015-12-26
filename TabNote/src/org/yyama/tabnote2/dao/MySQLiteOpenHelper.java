@@ -60,7 +60,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 						.getTabColorEnumFromImageId(imegeId);
 
 				String[] param = { String.valueOf(tabEnum.key),
-						String.valueOf(tabEnum.key), dateStr, c.getString(0) };
+						String.valueOf(tabEnum.key),  dateStr, c.getString(0) };
 				db.execSQL(updateSQL, param);
 			}
 
