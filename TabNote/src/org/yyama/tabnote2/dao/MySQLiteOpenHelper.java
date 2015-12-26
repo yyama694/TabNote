@@ -1,8 +1,10 @@
 package org.yyama.tabnote2.dao;
 
 import org.yyama.tabnote2.constant.Constant;
+import org.yyama.tabnote2.service.TabColorEnum;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -24,7 +26,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	private static final String DB_NAME = "DB_TAB_NOTE";
 
 	public MySQLiteOpenHelper(Context context) {
-		super(context, DB_NAME, null, 1);
+		super(context, DB_NAME, null, 2);
 	}
 
 	@Override
@@ -37,6 +39,26 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// 1→2 タブのイメージIDをそのまま保存していた問題があったので、Enumで管理するようにした。
+		if (oldVersion == 1 && newVersion == 2) {
+			String selectSQL = "SELECT _id, tab_image_id, underline_image_id FROM "
+					+ Constant.TABLE_NAME_TAB;
+			String updateSQL = "UPDATE " + Constant.TABLE_NAME_TAB
+					+ " SET tab_image_id=?," + "underline_image_id=?,"
+					+ "modify_datetime=? WHERE _id=?";
+			Cursor c = db.rawQuery(selectSQL, null);
+			while (c.moveToNext()) {
+				// TabColorEnumを取得
+				int imegeId = c.getInt(1);
+				TabColorEnum tabEnum = TabColorEnum
+						.getTabColorEnumFromImageId(imegeId);
+
+				String[] param = { String.valueOf(tabEnum.key),
+						String.valueOf(tabEnum.key), c.getString(0) };
+				db.execSQL(updateSQL, param);
+			}
+
+		}
 	}
 
 }
