@@ -1,5 +1,8 @@
 package org.yyama.tabnote2.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.yyama.tabnote2.constant.Constant;
 import org.yyama.tabnote2.service.TabColorEnum;
 
@@ -47,6 +50,9 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 					+ " SET tab_image_id=?," + "underline_image_id=?,"
 					+ "modify_datetime=? WHERE _id=?";
 			Cursor c = db.rawQuery(selectSQL, null);
+			String dateStr = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+					.format(new Date());
+
 			while (c.moveToNext()) {
 				// TabColorEnum‚ðŽæ“¾
 				int imegeId = c.getInt(1);
@@ -54,7 +60,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 						.getTabColorEnumFromImageId(imegeId);
 
 				String[] param = { String.valueOf(tabEnum.key),
-						String.valueOf(tabEnum.key), c.getString(0) };
+						String.valueOf(tabEnum.key), dateStr, c.getString(0) };
 				db.execSQL(updateSQL, param);
 			}
 
