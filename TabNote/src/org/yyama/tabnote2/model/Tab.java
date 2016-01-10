@@ -2,6 +2,8 @@ package org.yyama.tabnote2.model;
 
 import java.io.Serializable;
 
+import org.yyama.tabnote2.service.TabColorEnum;
+
 public class Tab implements Serializable {
 	private static final long serialVersionUID = 1267037861552622788L;
 
@@ -10,9 +12,8 @@ public class Tab implements Serializable {
 	public boolean isReadMode = true;
 
 	public String title;
-	public int tabImageId;
 	public String value;
-	public int tabUnderLineImageId;
-
+	public TabColorEnum color;
+	
 	public boolean edited = false;
 }

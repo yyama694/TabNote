@@ -7,6 +7,7 @@ import org.yyama.tabnote2.adapter.TabPagerAdapter;
 import org.yyama.tabnote2.dao.TblTabNoteDao;
 import org.yyama.tabnote2.model.Tab;
 import org.yyama.tabnote2.model.TabNote;
+import org.yyama.tabnote2.service.TabColorEnum;
 import org.yyama.tabnote2.service.TabNoteService;
 import org.yyama.tabnote2.view.TabNoteView;
 import org.yyama.tabnote2.view.TabUpdateDialogView;
@@ -59,7 +60,7 @@ public class TabUpdateFragment extends DialogFragment implements
 		if (bundle != null) {
 			Tab tab = (Tab) bundle.get("tab");
 			for (int i = 0; i < colorIds.size(); i++) {
-				if (colorIds.get(i) == tab.tabImageId) {
+				if (colorIds.get(i) == tab.color.tabImageId) {
 					vp.setCurrentItem(i);
 					break;
 				}
@@ -97,8 +98,9 @@ public class TabUpdateFragment extends DialogFragment implements
 			TabNoteService.unActivateAll();
 			if (bundle == null) {
 				// タブを追加する
-				Tab tab = TabNoteService.addTab(colorIds.get(vp
-						.getCurrentItem()), tabTitle.getText().toString());
+				Tab tab = TabNoteService.addTab(TabColorEnum
+						.getTabColorEnumFromKey(vp.getCurrentItem()), tabTitle
+						.getText().toString());
 				TabNoteView.addMainViewPager(tab.value);
 				// DBに追加する
 				tab.id = TblTabNoteDao.insert(tab, TabNote.tabs.size() - 1);
@@ -106,9 +108,8 @@ public class TabUpdateFragment extends DialogFragment implements
 				Tab tab = (Tab) bundle.get("tab");
 				// タブを変更する
 				tab.isActivate = true;
-				tab.tabImageId = colorIds.get(vp.getCurrentItem());
-				tab.tabUnderLineImageId = TabNoteService
-						.getUnderLineImageIdFromTabImageId(tab.tabImageId);
+				tab.color = TabColorEnum.getTabColorEnumFromKey(vp
+						.getCurrentItem());
 				tab.title = tabTitle.getText().toString();
 				// DBを変更数する
 				TblTabNoteDao.update(tab);

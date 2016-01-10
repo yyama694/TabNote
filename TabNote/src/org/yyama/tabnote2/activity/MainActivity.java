@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-//		Log.d("yyama", "onWindowFocusChanged");
 		super.onWindowFocusChanged(hasFocus);
 	}
 
@@ -75,8 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		// 起動時、タブが自動スクロールするための細工
 		ViewTreeObserver observer = findViewById(R.id.TabLinearLayout).getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(this);
-		
-		
+			
 		TabNoteView.draw(true);
 		onNewIntent(getIntent());
 	}
@@ -140,9 +138,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 			TabNoteService.unActivateAll();
 			((Tab) o).isActivate = true;
 			TabNoteView.draw(true);
-			// Log.d("yyama", "ボタンの幅は：" + v.getWidth());
-			// Log.d("yyama", "ボタンの高さは：" + v.getHeight());
-
 		}
 	}
 
@@ -182,9 +177,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	// ページ選択した際に、なぜか2回呼ばれる。要改善。
 	@Override
 	public void onPageSelected(int currentItem) {
-//		Log.d("yyama", "onPageSelected");
-//		Log.d("yyama", "currentItem:" + currentItem);
-
 		TabNoteService.unActivateAll();
 		TabNote.tabs.get(currentItem).isActivate = true;
 		 TabNoteView.draw(false);
@@ -289,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	// 起動時、タブが自動スクロールするための細工
 	@Override
 	public void onGlobalLayout() {
-		// TODO Auto-generated method stub
 		if (firstDraw) {
 			firstDraw = false;
 			TabNoteView.tabScroll();

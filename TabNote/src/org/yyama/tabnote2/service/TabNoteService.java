@@ -21,8 +21,7 @@ public class TabNoteService {
 			Tab tab = new Tab();
 			tab.title = act.getString(R.string.tab_title);
 			tab.isActivate = true;
-			tab.tabImageId = R.drawable.tab_red_active;
-			tab.tabUnderLineImageId = R.drawable.under_tab_line_red;
+			tab.color = TabColorEnum.RED;
 			tab.value = act.getString(R.string.double_tap_description);
 			tab.id = TblTabNoteDao.insert(tab, 0);
 			list.add(tab);
@@ -93,19 +92,17 @@ public class TabNoteService {
 	}
 
 	public static Tab addTab(String value) {
-		return addTab(R.drawable.tab_red_active, "", value);
+		return addTab(TabColorEnum.RED, "", value);
 	}
-	public static Tab addTab(int ColorId, String title) {
-		return addTab(ColorId, title, "");
+	public static Tab addTab(TabColorEnum color, String title) {
+		return addTab(color, title, "");
 	}
 
-	public static Tab addTab(int ColorId, String title, String value) {
+	public static Tab addTab(TabColorEnum color, String title, String value) {
 		Tab tab = new Tab();
 		unActivateAll();
 		tab.isActivate = true;
-		tab.tabImageId = ColorId;
-		tab.tabUnderLineImageId = TabNoteService
-				.getUnderLineImageIdFromTabImageId(tab.tabImageId);
+		tab.color = color;
 		tab.title = title;
 		tab.value = value;
 		TabNote.tabs.add(tab);

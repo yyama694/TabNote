@@ -40,7 +40,7 @@ public class TabContextMenuFragment extends DialogFragment implements
 		// ƒ^ƒCƒgƒ‹‚ğì¬‚·‚é
 		tab = (Tab) getArguments().get("tab");
 		TextView tv = (TextView) view.findViewById(R.id.tab_context_menu_title);
-		tv.setCompoundDrawablesWithIntrinsicBounds(tab.tabImageId, 0, 0, 0);
+		tv.setCompoundDrawablesWithIntrinsicBounds(tab.color.tabImageId, 0, 0, 0);
 		if (tab.title == null || tab.title.equals("")) {
 			tv.setText(getString(R.string.tab_menu));
 		} else {

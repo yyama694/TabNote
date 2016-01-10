@@ -27,24 +27,18 @@ public class TblTabNoteDao {
 	}
 
 	public static List<Tab> selectAll() {
-		String sql = "SELECT _id, title, value, tab_image_id, underline_image_id FROM "
+		String sql = "SELECT _id, title, value, tab_image_id FROM "
 				+ Constant.TABLE_NAME_TAB + " ORDER BY tab_order;";
 		Cursor c = db.rawQuery(sql, null);
 		List<Tab> list = new ArrayList<>();
 		while (c.moveToNext()) {
-			// TabColorEnumを取得
-			int num = c.getInt(3);
-			TabColorEnum tabEnum = TabColorEnum.getTabColorEnumFromKey(num);
-
 			// タブオブジェクトをセット
 			Tab tab = new Tab();
 			tab.id = c.getLong(0);
 			tab.title = c.getString(1);
 			tab.value = c.getString(2);
-			tab.tabImageId = tabEnum.tabImageId;
-			tab.tabUnderLineImageId = tabEnum.underlineImageId;
+			tab.color = TabColorEnum.getTabColorEnumFromKey(c.getInt(3));
 			list.add(tab);
-
 		}
 		return list;
 	}
@@ -56,18 +50,12 @@ public class TblTabNoteDao {
 				+ "VALUES(?,?,?,?,?,?,?);";
 		String dateStr = new SimpleDateFormat(DATE_PATTERN).format(new Date());
 
-		// 対応するTabColorEnumを取得する
-		TabColorEnum tabEnum = TabColorEnum
-				.getTabColorEnumFromImageId(tab.tabImageId);
-
-		String[] param = { tab.title, tab.value, String.valueOf(tabEnum.key),
-				String.valueOf(tabEnum.key), String.valueOf(order), dateStr,
-				dateStr };
+		String[] param = { tab.title, tab.value, String.valueOf(tab.color.key),
+				"dummy", String.valueOf(order), dateStr, dateStr };
 		db.execSQL(sql, param);
 		// IDを取得し返す
 		Cursor c = db.rawQuery("SELECT LAST_INSERT_ROWID();", null);
 		c.moveToNext();
-		// Log.d("yyama", "insertしました。id:" + c.getLong(0));
 		return c.getLong(0);
 	}
 
@@ -77,17 +65,9 @@ public class TblTabNoteDao {
 				+ "modify_datetime=? WHERE _id=?";
 		String dateStr = new SimpleDateFormat(DATE_PATTERN).format(new Date());
 
-		// 対応するTabColorEnumを取得する
-		TabColorEnum tabEnum = TabColorEnum
-				.getTabColorEnumFromImageId(tab.tabImageId);
-		
-		String[] param = { tab.title, tab.value,
-				String.valueOf(tabEnum.key),
-				String.valueOf(tabEnum.key), dateStr,
-				String.valueOf(tab.id) };
+		String[] param = { tab.title, tab.value, String.valueOf(tab.color.key),
+				"dummy", dateStr, String.valueOf(tab.id) };
 		db.execSQL(sql, param);
-		// Log.d("yyama", "updateしました。id:" + tab.id);
-		// Log.d("yyama", "update時のimageId:" + tab.tabImageId);
 	}
 
 	public static void delete(Tab tab) {
@@ -96,17 +76,7 @@ public class TblTabNoteDao {
 		db.execSQL(sql, param);
 	}
 
-	@Deprecated
-	public static long count() {
-		// selectAllで件数も取得できるので、この関数は無かったことに。
-		String sql = "SELECT COUNT(*) FROM " + Constant.TABLE_NAME_TAB + ";";
-		Cursor c = db.rawQuery(sql, null);
-		c.moveToNext();
-		return c.getLong(0);
-	}
-
 	public static void updateOrder() {
-		Log.d("yyama", "updateOrder!");
 		String sql = "UPDATE " + Constant.TABLE_NAME_TAB
 				+ " SET tab_order=? WHERE _id=?";
 		for (int i = 0; i < TabNote.tabs.size(); i++) {

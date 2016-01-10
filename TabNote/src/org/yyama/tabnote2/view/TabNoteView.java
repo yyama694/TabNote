@@ -117,13 +117,13 @@ public class TabNoteView {
 			// btn.setWidth(btnWidth);
 			// btn.setHeight(btnHeight);
 
-			btn.setBackgroundResource(tab.tabImageId);
+			btn.setBackgroundResource(tab.color.tabImageId);
 			// btn.setTextSize(size);
 			btn.setText(tab.title);
 			btn.setTag(tab);
 			if (tab.isActivate) {
 				// É^ÉuÇÃâ∫ê¸
-				underLineImg.setImageResource(tab.tabUnderLineImageId);
+				underLineImg.setImageResource(tab.color.underlineImageId);
 				setAlphaForView(btn, 1.0f);
 			} else {
 				setAlphaForView(btn, 0.6f);
