@@ -21,11 +21,11 @@
     <string name="double_tap_description">ダブルタップで編集できます。</string>
     <string name="underline">罫線</string>
     <string name="font_size">フォントサイズ</string>
-    
     <string name="extra_large">特大</string>
     <string name="large">大きい</string>
     <string name="medium">普通</string>
     <string name="small">小さい</string>
     <string name="extra_small">極小</string>
+    <string name="default_note_name">初期のノート</string>
 
 </resources>

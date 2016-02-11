@@ -26,5 +26,6 @@
     <string name="medium">Medium</string>
     <string name="small">Small</string>
     <string name="extra_small">Extra Small</string>
-
+    <string name="default_note_name">Default Note</string>
+    
 </resources>

@@ -1,7 +1,7 @@
 package org.yyama.tabnote2.activity;
 
 import org.yyama.tabnote2.R;
-import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.dao.TblTabDao;
 import org.yyama.tabnote2.model.Tab;
 import org.yyama.tabnote2.model.TabNote;
 import org.yyama.tabnote2.service.TabNoteService;
@@ -87,7 +87,7 @@ public class TabContextMenuFragment extends DialogFragment implements
 			TabNoteView.saveValueAll();
 			TabNoteService.toLeft(tab);
 			TabNoteView.setMainViewPager();
-			TblTabNoteDao.updateOrder();
+			TblTabDao.updateOrder();
 			TabNoteView.draw(true);
 			dismiss();
 			break;
@@ -95,7 +95,7 @@ public class TabContextMenuFragment extends DialogFragment implements
 			TabNoteView.saveValueAll();
 			TabNoteService.toRight(tab);
 			TabNoteView.setMainViewPager();
-			TblTabNoteDao.updateOrder();
+			TblTabDao.updateOrder();
 			TabNoteView.draw(true);
 			dismiss();
 			break;

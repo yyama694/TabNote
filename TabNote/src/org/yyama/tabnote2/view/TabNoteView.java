@@ -8,7 +8,7 @@ import org.yyama.tabnote2.R;
 import org.yyama.tabnote2.activity.MainActivity;
 import org.yyama.tabnote2.adapter.MainPagerAdapter;
 import org.yyama.tabnote2.dao.TblTabActiveDao;
-import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.dao.TblTabDao;
 import org.yyama.tabnote2.model.Tab;
 import org.yyama.tabnote2.model.TabNote;
 import org.yyama.tabnote2.service.TabNoteService;
@@ -348,7 +348,7 @@ public class TabNoteView {
 				tv.setText(ev.getText().toString());
 				TabNote.tabs.get(i).value = ev.getText().toString();
 				TabNote.tabs.get(i).edited = false;
-				TblTabNoteDao.update(TabNote.tabs.get(i));
+				TblTabDao.update(TabNote.tabs.get(i));
 			}
 		}
 		if (updated) {
@@ -371,7 +371,7 @@ public class TabNoteView {
 			tv.setText(ev.getText().toString());
 			activeTab.value = ev.getText().toString();
 			activeTab.edited = false;
-			TblTabNoteDao.update(activeTab);
+			TblTabDao.update(activeTab);
 			Toast.makeText(act, act.getString(R.string.has_been_saved),
 					Toast.LENGTH_SHORT).show();
 		}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.yyama.tabnote2.R;
 import org.yyama.tabnote2.adapter.TabPagerAdapter;
-import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.dao.TblTabDao;
 import org.yyama.tabnote2.model.Tab;
 import org.yyama.tabnote2.model.TabNote;
 import org.yyama.tabnote2.service.TabColorEnum;
@@ -103,7 +103,7 @@ public class TabUpdateFragment extends DialogFragment implements
 						.getText().toString());
 				TabNoteView.addMainViewPager(tab.value);
 				// DBに追加する
-				tab.id = TblTabNoteDao.insert(tab, TabNote.tabs.size() - 1);
+				tab.id = TblTabDao.insert(tab, TabNote.tabs.size() - 1);
 			} else {
 				Tab tab = (Tab) bundle.get("tab");
 				// タブを変更する
@@ -112,7 +112,7 @@ public class TabUpdateFragment extends DialogFragment implements
 						.getCurrentItem());
 				tab.title = tabTitle.getText().toString();
 				// DBを変更数する
-				TblTabNoteDao.update(tab);
+				TblTabDao.update(tab);
 			}
 			TabNoteView.draw(true);
 			dismiss();

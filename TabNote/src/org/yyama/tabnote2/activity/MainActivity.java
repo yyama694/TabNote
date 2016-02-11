@@ -1,8 +1,9 @@
 package org.yyama.tabnote2.activity;
 
 import org.yyama.tabnote2.R;
+import org.yyama.tabnote2.dao.TblNoteDao;
 import org.yyama.tabnote2.dao.TblTabActiveDao;
-import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.dao.TblTabDao;
 import org.yyama.tabnote2.model.Tab;
 import org.yyama.tabnote2.model.TabNote;
 import org.yyama.tabnote2.service.TabNoteService;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		TblTabNoteDao.init(this);
+		TblTabDao.init(this);
+		TblNoteDao.init(this);
 		TblTabActiveDao.init(this);
 		TabNoteService.init(this);
 		TabNoteView.init(this);
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 			Tab tab = TabNoteService.addTab(str);
 			TabNoteView.addMainViewPager(str);
 			// DBÇ…í«â¡Ç∑ÇÈ
-			tab.id = TblTabNoteDao.insert(tab, TabNote.tabs.size() - 1);
+			tab.id = TblTabDao.insert(tab, TabNote.tabs.size() - 1);
 			firstDraw = true;
 		} else {
 			Log.d("yyama", "intentÇÕnullÇ≈Ç∑ÅB");
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 
 	@Override
 	protected void onDestroy() {
-		TblTabNoteDao.close();
+		TblTabDao.close();
 		TblTabActiveDao.close();
 		super.onDestroy();
 	}

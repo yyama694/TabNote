@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.yyama.tabnote2.R;
-import org.yyama.tabnote2.dao.TblTabNoteDao;
+import org.yyama.tabnote2.dao.TblNoteDao;
+import org.yyama.tabnote2.dao.TblTabDao;
+import org.yyama.tabnote2.model.Note;
 import org.yyama.tabnote2.model.Tab;
 import org.yyama.tabnote2.model.TabNote;
 
@@ -13,9 +15,10 @@ import android.app.Activity;
 public class TabNoteService {
 	private TabNoteService() {
 	}
-
+	private static Activity act;
 	public static void init(Activity act) {
-		List<Tab> list = TblTabNoteDao.selectAll();
+		TabNoteService.act=act;
+		List<Tab> list = TblTabDao.selectAll();
 		if (list.size() == 0) {
 			// TabÇ™DBÇ…ìoò^Ç≥ÇÍÇƒÇ¢Ç»Ç¢èÍçá
 			Tab tab = new Tab();
@@ -23,13 +26,22 @@ public class TabNoteService {
 			tab.isActivate = true;
 			tab.color = TabColorEnum.RED;
 			tab.value = act.getString(R.string.double_tap_description);
-			tab.id = TblTabNoteDao.insert(tab, 0);
+			tab.id = TblTabDao.insert(tab, 0);
 			list.add(tab);
 		} else {
 		}
 		TabNote.tabs = list;
+		List<Note> notes = TblNoteDao.selectAll();
+		if (notes.size() == 0) {
+			insertDefaultRowToNote();
+		}
 	}
 
+	public static void insertDefaultRowToNote(){
+		// NoteÇ™0åèÇÃèÍçá
+		Note note = new Note(act.getString(R.string.default_note_name), 0);
+		note.id = TblNoteDao.insert(note);		
+	}
 	public static List<Integer> getColorIdAllKind() {
 		List<Integer> list = new ArrayList<>();
 		list.add(R.drawable.tab_red_active);
@@ -73,8 +85,8 @@ public class TabNoteService {
 				TabNote.tabs.get(i - 1).isActivate = true;
 			}
 		}
-		TblTabNoteDao.delete(tab);
-		TblTabNoteDao.updateOrder();
+		TblTabDao.delete(tab);
+		TblTabDao.updateOrder();
 	}
 
 	public static void toLeft(Tab tab) {
@@ -94,6 +106,7 @@ public class TabNoteService {
 	public static Tab addTab(String value) {
 		return addTab(TabColorEnum.RED, "", value);
 	}
+
 	public static Tab addTab(TabColorEnum color, String title) {
 		return addTab(color, title, "");
 	}
