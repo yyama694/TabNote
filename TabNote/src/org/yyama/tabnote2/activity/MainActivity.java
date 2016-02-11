@@ -38,7 +38,8 @@ import android.view.inputmethod.InputMethodManager;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener,
 		OnLongClickListener, OnPageChangeListener, OnGestureListener,
-		OnDoubleTapListener, OnTouchListener, TextWatcher, OnGlobalLayoutListener {
+		OnDoubleTapListener, OnTouchListener, TextWatcher,
+		OnGlobalLayoutListener {
 
 	private GestureDetector gd;
 
@@ -62,8 +63,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		TblTabDao.init(this);
+		TabNoteService.act = this;
 		TblNoteDao.init(this);
+		TblTabDao.init(this);
 		TblTabActiveDao.init(this);
 		TabNoteService.init(this);
 		TabNoteView.init(this);
@@ -74,9 +76,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		gd = new GestureDetector(viewPager.getContext(), this);
 
 		// 起動時、タブが自動スクロールするための細工
-		ViewTreeObserver observer = findViewById(R.id.TabLinearLayout).getViewTreeObserver();
+		ViewTreeObserver observer = findViewById(R.id.TabLinearLayout)
+				.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(this);
-			
+
 		TabNoteView.draw(true);
 		onNewIntent(getIntent());
 	}
@@ -181,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	public void onPageSelected(int currentItem) {
 		TabNoteService.unActivateAll();
 		TabNote.tabs.get(currentItem).isActivate = true;
-		 TabNoteView.draw(false);
+		TabNoteView.draw(false);
 		if (TabNote.tabs.get(currentItem).isReadMode) {
 			if (getCurrentFocus() != null) {
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -279,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 	@Override
 	public void afterTextChanged(Editable s) {
 	}
-	
+
 	// 起動時、タブが自動スクロールするための細工
 	@Override
 	public void onGlobalLayout() {

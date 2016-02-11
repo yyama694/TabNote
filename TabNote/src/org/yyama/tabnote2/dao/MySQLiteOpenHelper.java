@@ -8,11 +8,10 @@ import static org.yyama.tabnote2.constant.Constant.TABLE_NAME_TAB_NOTE;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.yyama.tabnote2.model.Note;
-import org.yyama.tabnote2.model.Tab;
+import org.yyama.tabnote2.R;
 import org.yyama.tabnote2.service.TabColorEnum;
-import org.yyama.tabnote2.service.TabNoteService;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -47,8 +46,11 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 			+ TABLE_NAME_ACTIVE + " VALUES(0);";
 	private static final String DB_NAME = "DB_TAB_NOTE";
 
+	private static Activity act;
+
 	public MySQLiteOpenHelper(Context context) {
 		super(context, DB_NAME, null, 3);
+		MySQLiteOpenHelper.act = (Activity) context;
 	}
 
 	@Override
@@ -72,6 +74,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// ver1は、タブのイメージIDをそのまま保存していた問題があったので、Enumで管理するようにした。
 		if (oldVersion == 1) {
+			System.out.println("enumを使うように移行します。");
 			String selectSQL = "SELECT _id, tab_image_id, underline_image_id FROM "
 					+ TABLE_NAME_TAB_NOTE;
 			String updateSQL = "UPDATE " + TABLE_NAME_TAB_NOTE
@@ -93,21 +96,29 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 		}
 		// データの持ち方を変えたので、新しいテーブルに移行
 		if (oldVersion <= 2) {
+			System.out.println("dataの持ち方を変える移行を行います。");
 			// Noteテーブルへの処理
 			db.execSQL(CREATE_TABLE_NOTE);
-			TabNoteService.insertDefaultRowToNote();
-			// データ移行
-			String selSql = "SELECT title,value,tab_image_id,create_dategime "
-					+ "from " + TABLE_NAME_TAB_NOTE + ";";
-			String ins = "INSERT INTO " + TABLE_NAME_TAB + "title," + "value,"
-					+ "tab_color_key," + "fk_note_id," + "create_dategime,"
-					+ "modify_dategime VALUES(?,?,?,?,?,?)";
+			String ins = "INSERT INTO " + TABLE_NAME_NOTE
+					+ "( name, note_order, create_datetime,"
+					+ "modify_datetime )" + " VALUES (?,?,?,?);";
 			String dateStr = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
 					.format(new Date());
+			String[] param = new String[] {
+					act.getString(R.string.default_note_name), "0", dateStr,
+					dateStr };
+
+			// データ移行
+			db.execSQL(CREATE_TABLE_TAB);
+			String selSql = "SELECT title,value,tab_image_id,create_datetime "
+					+ "from " + TABLE_NAME_TAB_NOTE + ";";
+			ins = "INSERT INTO " + TABLE_NAME_TAB + "(title," + "value,"
+					+ "tab_color_key," + "fk_note_id," + "create_datetime,"
+					+ "modify_datetime) VALUES(?,?,?,?,?,?)";
 			Cursor c = db.rawQuery(selSql, null);
 			while (c.moveToNext()) {
-				String[] param = new String[] { c.getString(0), c.getString(1),
-						c.getString(2), c.getString(3), c.getString(4), dateStr };
+				param = new String[] { c.getString(0), c.getString(1),
+						c.getString(2), c.getString(3), "0", dateStr };
 				db.execSQL(ins, param);
 
 			}

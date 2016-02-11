@@ -15,9 +15,14 @@ import android.app.Activity;
 public class TabNoteService {
 	private TabNoteService() {
 	}
-	private static Activity act;
+
+	public static Activity act;
+
 	public static void init(Activity act) {
-		TabNoteService.act=act;
+		List<Note> notes = TblNoteDao.selectAll();
+		if (notes.size() == 0) {
+			insDefaultRowToNote();
+		}
 		List<Tab> list = TblTabDao.selectAll();
 		if (list.size() == 0) {
 			// TabÇ™DBÇ…ìoò^Ç≥ÇÍÇƒÇ¢Ç»Ç¢èÍçá
@@ -31,17 +36,13 @@ public class TabNoteService {
 		} else {
 		}
 		TabNote.tabs = list;
-		List<Note> notes = TblNoteDao.selectAll();
-		if (notes.size() == 0) {
-			insertDefaultRowToNote();
-		}
 	}
 
-	public static void insertDefaultRowToNote(){
-		// NoteÇ™0åèÇÃèÍçá
+	public static void insDefaultRowToNote() {
 		Note note = new Note(act.getString(R.string.default_note_name), 0);
-		note.id = TblNoteDao.insert(note);		
+		note.id = TblNoteDao.insert(note);
 	}
+
 	public static List<Integer> getColorIdAllKind() {
 		List<Integer> list = new ArrayList<>();
 		list.add(R.drawable.tab_red_active);
