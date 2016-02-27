@@ -1,0 +1,19 @@
+<org.yyama.tabnote2.view.NoteSelectView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:paddingTop="5dp"
+    tools:context="org.yyama.tabnote2.activity.NoteSelectActivity" >
+
+    <LinearLayout
+        android:id="@+id/note_select_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/background_floating_material_light" >
+
+    </LinearLayout>
+
+</org.yyama.tabnote2.view.NoteSelectView>

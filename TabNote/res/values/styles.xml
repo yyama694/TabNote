@@ -1,14 +1,28 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" tools:context="org.yyama.tabnote2.NoteSelectActinity">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
+
     <style name="SettihgTheme" parent="Theme.AppCompat"></style>
+
+    <style name="NoteSelectTheme" parent="Theme.AppCompat">
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+    </style>
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="titleTextStyle">@style/ActionBarTitleStyle</item>
+        <item name="background">@color/actionbar_color</item>
+    </style>
+
+    <style name="ActionBarTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:typeface">sans</item>
     </style>
 
 </resources>

@@ -4,11 +4,15 @@
     tools:context="org.yyama.tabnote2.MainActivity" >
 
     <item
+        android:id="@+id/select_note"
+        android:orderInCategory="100"
+        android:title="@string/select_note"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/app_settings"
         android:orderInCategory="100"
         android:title="@string/app_settings"
         app:showAsAction="never"/>
-
     <item
         android:id="@+id/tab_settings"
         android:orderInCategory="100"

@@ -40,6 +40,10 @@
             android:theme="@style/SettihgTheme" >
         </activity>
         <activity
+            android:name="org.yyama.tabnote2.activity.NoteSelectActivity"
+            android:theme="@style/NoteSelectTheme" >
+        </activity>
+        <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
     </application>

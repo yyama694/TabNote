@@ -3,5 +3,6 @@
 
     <color name="selected_color">#FFADD8E6</color>
     <color name="default_color">#FFFFFFFF</color>
-
+    <color name="actionbar_color">#FF3F51B6</color>
+    
 </resources>

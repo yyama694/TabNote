@@ -27,5 +27,7 @@
     <string name="small">小さい</string>
     <string name="extra_small">極小</string>
     <string name="default_note_name">初期のノート</string>
+    <string name="select_note">ノート選択</string>
+    <string name="add_note">Add note</string>
 
 </resources>
