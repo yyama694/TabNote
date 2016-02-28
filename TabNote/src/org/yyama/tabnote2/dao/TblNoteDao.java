@@ -27,10 +27,10 @@ public class TblNoteDao {
 			+ TABLE_NAME_NOTE + " order by note_order;";
 
 	public static List<Note> selectAll() {
-		Cursor c = db.rawQuery(SELECT_ALL,new String[]{});
+		Cursor c = db.rawQuery(SELECT_ALL, new String[] {});
 		List<Note> list = new ArrayList<>();
 		while (c.moveToNext()) {
-			Note note=new Note(c.getInt(0),c.getString(1),c.getLong(2));
+			Note note = new Note(c.getInt(0), c.getString(1), c.getLong(2));
 			list.add(note);
 		}
 		return list;
@@ -40,13 +40,21 @@ public class TblNoteDao {
 			+ TABLE_NAME_NOTE + "( name, note_order, create_datetime,"
 			+ "modify_datetime )" + " VALUES (?,?,?,?);";
 
-	public static long insert(Note note){
+	public static long insert(Note note) {
 		String dateStr = new SimpleDateFormat(DATE_PATTERN).format(new Date());
-		String[] param = { note.name,
-				dateStr, dateStr };
+		String[] param = { note.name, dateStr, dateStr };
 		db.execSQL(INSERT_TABLE_NOTE, param);
 		// ID‚ðŽæ“¾‚µ•Ô‚·
 		Cursor c = db.rawQuery("SELECT LAST_INSERT_ROWID();", null);
+		c.moveToNext();
+		return c.getLong(0);
+	}
+
+	private static final String GET_NOTE_COUNT = "SELECT count(*) FROM"
+			+ TABLE_NAME_NOTE + ";";
+
+	public static long getMaxId() {
+		Cursor c = db.rawQuery(GET_NOTE_COUNT, null);
 		c.moveToNext();
 		return c.getLong(0);
 	}

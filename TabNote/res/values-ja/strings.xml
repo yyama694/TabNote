@@ -28,6 +28,12 @@
     <string name="extra_small">極小</string>
     <string name="default_note_name">初期のノート</string>
     <string name="select_note">ノート選択</string>
-    <string name="add_note">Add note</string>
+    <string name="add_note">ノート追加</string>
+    <string name="note_delete_confirmation">次のノートを削除してよろしいですか？</string>
+    <string name="delete_confirmation_title">削除確認</string>
+    <string name="new_note_name">新しいノートの名前を入力してください。</string>
+    <string name="change_note_name_title">ノート名変更</string>
+    <string name="change_note_name">ノートの名前を変更できます。</string>
+    <string name="note">ノート</string>
 
 </resources>

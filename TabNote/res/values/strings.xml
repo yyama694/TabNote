@@ -28,6 +28,12 @@
     <string name="extra_small">Extra Small</string>
     <string name="default_note_name">Default Note</string>
     <string name="select_note">Select note</string>
-    <string name="add_note">Add note</string>
-    
+    <string name="add_note">Add a note</string>
+    <string name="note_delete_confirmation">Are you sure you want to delete the following note?</string>
+    <string name="delete_confirmation_title">Delete Confirmation</string>
+    <string name="new_note_name">Please input a name for the new note.</string>
+    <string name="change_note_name_title">Chenge the note name</string>
+    <string name="change_note_name">You can change a name for the note.</string>
+    <string name="note">Note</string>
+
 </resources>

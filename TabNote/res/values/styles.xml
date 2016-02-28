@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="SettihgTheme" parent="Theme.AppCompat"></style>
 
-    <style name="NoteSelectTheme" parent="Theme.AppCompat">
+    <style name="NoteSelectTheme" parent="Theme.AppCompat.Light">
         <item name="actionBarStyle">@style/ActionBarStyle</item>
     </style>
     <!-- Application theme. -->
@@ -23,6 +23,7 @@
 
     <style name="ActionBarTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:typeface">sans</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>
