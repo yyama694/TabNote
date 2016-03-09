@@ -52,7 +52,7 @@ public class NoteSelectActivity extends AppCompatActivity implements
 		setTitle(R.string.select_note);
 		ActionBar bar = getSupportActionBar();
 		bar.setDisplayHomeAsUpEnabled(true);
-		bar.setHomeAsUpIndicator(R.drawable.ic_menu_back);
+		bar.setHomeAsUpIndicator(R.drawable.ic_navigate_before_white_24dp);
 		// bar.setDisplayShowHomeEnabled(true);
 		// bar.setIcon(R.drawable.ic_launcher);
 		setParts();

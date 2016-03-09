@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/add_note"
-        android:icon="@drawable/ic_menu_add_white"
+        android:icon="@drawable/ic_add_circle_outline_white_48dp"
         android:orderInCategory="1"
         app:showAsAction="ifRoom|withText"
         android:title="@string/add_note"/>
