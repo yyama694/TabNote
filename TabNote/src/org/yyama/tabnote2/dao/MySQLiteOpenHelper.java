@@ -33,8 +33,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 			+ "title TEXT, "
 			+ "value TEXT,"
 			+ "tab_color_key INTEGER,"
-			+ "tab_order INTEGER,"
-			+ "fk_note_id INTEGER,"
+			+ "tab_order INTEGER NOT NULL,"
+			+ "fk_note_id INTEGER NOT NULL,"
 			+ "create_datetime TEXT NOT NULL,"
 			+ "modify_datetime TEXT NOT NULL,FOREIGN KEY(fk_note_id) REFERENCES "
 			+ TABLE_NAME_NOTE + "(_id)" + ");";

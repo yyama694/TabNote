@@ -58,4 +58,12 @@ public class TblNoteDao {
 		c.moveToNext();
 		return c.getLong(0);
 	}
+
+	// オーダーを1ずつ繰上げ、0番を欠番にする。
+	private static final String ORDER_INCREMENT = "UPDATE " + TABLE_NAME_NOTE
+			+ " SET order = order+1;";
+
+	public static void orderIncrement() {
+		db.execSQL(ORDER_INCREMENT);
+	}
 }

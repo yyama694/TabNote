@@ -23,7 +23,7 @@ public class TabNoteService {
 		if (notes.size() == 0) {
 			insDefaultRowToNote();
 		}
-		List<Tab> list = TblTabDao.selectAll();
+		List<Tab> list = TblTabDao.selectTabBelongActiveNote();
 		if (list.size() == 0) {
 			// Tab‚ªDB‚É“o˜^‚³‚ê‚Ä‚¢‚È‚¢ê‡
 			Tab tab = new Tab();

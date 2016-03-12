@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -53,8 +52,6 @@ public class NoteSelectActivity extends AppCompatActivity implements
 		ActionBar bar = getSupportActionBar();
 		bar.setDisplayHomeAsUpEnabled(true);
 		bar.setHomeAsUpIndicator(R.drawable.ic_navigate_before_white_24dp);
-		// bar.setDisplayShowHomeEnabled(true);
-		// bar.setIcon(R.drawable.ic_launcher);
 		setParts();
 		show();
 	}
@@ -81,10 +78,9 @@ public class NoteSelectActivity extends AppCompatActivity implements
 
 	private void show() {
 		List<Note> notes = TblNoteDao.selectAll();
-		// for (Note note : notes) {
-		for (int i = 0; i < 20; i++) {
+		for (Note note : notes) {
 			LinearLayout childLL = getLlAtList();
-			childLL.addView(getTextViewAtList());
+			childLL.addView(getTextViewAtList(note.name));
 			ImageButton ib = new ImageButton(this);
 			ib.setImageResource(android.R.drawable.ic_menu_preferences);
 			ib.setBackground(null);
@@ -95,7 +91,7 @@ public class NoteSelectActivity extends AppCompatActivity implements
 			MarginLayoutParams mp = (MarginLayoutParams) lp;
 			mp.setMargins(0, 0, 0, 0);
 			ib.setLayoutParams(lp);
-			ItemTag tag = new ItemTag(ItemKind.EDIT, "aaaaaaa"); // 第2引数はノート名
+			ItemTag tag = new ItemTag(ItemKind.EDIT, note.name); // 第2引数はノート名
 			ib.setTag(tag);
 			ib.setOnClickListener(this);
 			childLL.addView(ib);
@@ -106,19 +102,18 @@ public class NoteSelectActivity extends AppCompatActivity implements
 			ib.setBackground(null);
 			ib.setBackgroundResource(R.drawable.select_note_selector);
 			ib.setOnClickListener(this);
-			tag = new ItemTag(ItemKind.DELETE, "aaaaaaa"); // 第2引数はノート名
+			tag = new ItemTag(ItemKind.DELETE, note.name); // 第2引数はノート名
 			ib.setTag(tag);
 			childLL.addView(ib);
 			ll.addView(childLL);
 		}
-		// }
 	}
 
-	private TextView getTextViewAtList() {
+	private TextView getTextViewAtList(String name) {
 		TextView tv = new TextView(this);
 		tv.setClickable(true);
 		tv.setBackgroundResource(R.drawable.select_note_selector);
-		tv.setText("aaadsfsadf");
+		tv.setText(name);
 		tv.setTextSize(30);
 		tv.setPadding(15, 30, 15, 30);
 		tv.setTextColor(Color.BLACK);
@@ -202,7 +197,8 @@ public class NoteSelectActivity extends AppCompatActivity implements
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								// 入力した文字をトースト出力する
+								// 入力した文字でノートを作成する
+								// 新規ノートをアクティブにする。
 								Toast.makeText(NoteSelectActivity.this,
 										editView.getText().toString(),
 										Toast.LENGTH_LONG).show();

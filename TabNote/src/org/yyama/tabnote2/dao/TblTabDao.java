@@ -25,7 +25,8 @@ public class TblTabDao {
 		db = helper.getWritableDatabase();
 	}
 
-	public static List<Tab> selectAll() {
+	// TODO 引数で指定されたノートIDのみのタブを返すように変更予定、。
+	public static List<Tab> selectTabBelongActiveNote() {
 		String sql = "SELECT _id, title, value, tab_color_key FROM "
 				+ TABLE_NAME_TAB + " ORDER BY tab_order;";
 		Cursor c = db.rawQuery(sql, null);
@@ -69,8 +70,7 @@ public class TblTabDao {
 	}
 
 	public static void delete(Tab tab) {
-		String sql = "DELETE FROM " + TABLE_NAME_TAB
-				+ " WHERE _id=?";
+		String sql = "DELETE FROM " + TABLE_NAME_TAB + " WHERE _id=?";
 		String[] param = { String.valueOf(tab.id) };
 		db.execSQL(sql, param);
 	}
