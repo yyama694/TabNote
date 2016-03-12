@@ -38,7 +38,7 @@ public class TabNoteService {
 		TabNote.tabs = list;
 	}
 
-	public static void insDefaultRowToNote() {
+	private static void insDefaultRowToNote() {
 		Note note = new Note(act.getString(R.string.default_note_name), 0);
 		note.id = TblNoteDao.insert(note);
 	}

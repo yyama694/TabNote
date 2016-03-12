@@ -111,7 +111,7 @@ public class TabUpdateFragment extends DialogFragment implements
 				tab.color = TabColorEnum.getTabColorEnumFromKey(vp
 						.getCurrentItem());
 				tab.title = tabTitle.getText().toString();
-				// DB‚ğ•ÏX”‚·‚é
+				// DB‚ğ•ÏX‚·‚é
 				TblTabDao.update(tab);
 			}
 			TabNoteView.draw(true);

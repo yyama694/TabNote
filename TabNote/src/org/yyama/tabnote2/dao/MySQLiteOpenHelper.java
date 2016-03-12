@@ -32,9 +32,9 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 			+ "_id INTEGER PRIMARY KEY NOT NULL,"
 			+ "title TEXT, "
 			+ "value TEXT,"
-			+ "tab_color_key INTEGER,"
-			+ "tab_order INTEGER,"
-			+ "fk_note_id INTEGER,"
+			+ "tab_color_key INTEGER NOT NULL,"
+			+ "tab_order INTEGER NOT NULL,"
+			+ "fk_note_id INTEGER NOT NULL,"
 			+ "create_datetime TEXT NOT NULL,"
 			+ "modify_datetime TEXT NOT NULL,FOREIGN KEY(fk_note_id) REFERENCES "
 			+ TABLE_NAME_NOTE + "(_id)" + ");";
@@ -49,7 +49,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	private static Activity act;
 
 	public MySQLiteOpenHelper(Context context) {
-		super(context, DB_NAME, null, 3);
+		super(context, DB_NAME, null, 4);
 		MySQLiteOpenHelper.act = (Activity) context;
 	}
 
@@ -96,7 +96,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 		}
 		// データの持ち方を変えたので、新しいテーブルに移行
 		if (oldVersion <= 2) {
-			System.out.println("dataの持ち方を変える移行を行います。");
 			// Noteテーブルへの処理
 			db.execSQL(CREATE_TABLE_NOTE);
 			String ins = "INSERT INTO " + TABLE_NAME_NOTE
@@ -107,21 +106,44 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 			String[] param = new String[] {
 					act.getString(R.string.default_note_name), "0", dateStr,
 					dateStr };
-
+			String getNoteId = "SELECT _id FROM " + TABLE_NAME_NOTE + ";";
+			Cursor id = db.rawQuery(getNoteId, null);
+			id.moveToNext();
 			// データ移行
 			db.execSQL(CREATE_TABLE_TAB);
-			String selSql = "SELECT title,value,tab_image_id,create_datetime "
+			String selSql = "SELECT title,value,tab_image_id,tab_order,create_datetime "
 					+ "from " + TABLE_NAME_TAB_NOTE + ";";
 			ins = "INSERT INTO " + TABLE_NAME_TAB + "(title," + "value,"
-					+ "tab_color_key," + "fk_note_id," + "create_datetime,"
-					+ "modify_datetime) VALUES(?,?,?,?,?,?)";
-			Cursor c = db.rawQuery(selSql, null);
-			while (c.moveToNext()) {
-				param = new String[] { c.getString(0), c.getString(1),
-						c.getString(2), c.getString(3), "0", dateStr };
+					+ "tab_color_key," + "tab_order," + "fk_note_id,"
+					+ "create_datetime,"
+					+ "modify_datetime) VALUES(?,?,?,?,?,?,?)";
+			Cursor c2 = db.rawQuery(selSql, null);
+			while (c2.moveToNext()) {
+				param = new String[] { c2.getString(0), c2.getString(1),
+						c2.getString(2), c2.getString(3), id.getString(0),
+						c2.getString(4), dateStr };
 				db.execSQL(ins, param);
-
 			}
+		}
+		// バージョン３では、TABテーブルでFK_NOTE_IDを使用していないバグがあったので、
+		// FK_NOTE_IDがNULLの場合、アクティブノートのNOTE_IDをセットする。
+		// また、ノートテーブルのorderに日付が入っていたバグを修正する。
+		if (oldVersion == 3 && newVersion == 4) {
+			// NOTEテーブルを修正する。
+			String dateStr = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+					.format(new Date());
+			String updSql = "UPDATE " + TABLE_NAME_NOTE
+					+ " SET note_order=0, modify_datetime='" + dateStr + "';";
+			db.execSQL(updSql, null);
+
+			// TABテーブルのFK_NOTE_IDを修正絵する。
+			String getNoteId = "SELECT _id FROM " + TABLE_NAME_NOTE + ";";
+			Cursor id = db.rawQuery(getNoteId, null);
+			id.moveToNext();
+			updSql = "UPDATE " + TABLE_NAME_TAB + " SET fk_note_id=?";
+			db.execSQL(updSql, new String[] { id.getString(0) });
+			// TABテーブルのtab_orderを修正する。
+			// やっぱり落ちずに自然に直りそうなので放置
 		}
 	}
 }

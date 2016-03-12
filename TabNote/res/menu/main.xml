@@ -14,5 +14,11 @@
         android:orderInCategory="100"
         android:title="@string/tab_menu"
         app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/table_debug"
+        android:orderInCategory="100"
+        android:title="@string/table_debug"
+        app:showAsAction="never"/>
 
 </menu>

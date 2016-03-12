@@ -14,6 +14,7 @@ public class Tab implements Serializable {
 	public String title;
 	public String value;
 	public TabColorEnum color;
-	
+	public long noteId;
+
 	public boolean edited = false;
 }

@@ -23,14 +23,14 @@ public class TblNoteDao {
 		db = helper.getWritableDatabase();
 	}
 
-	private static final String SELECT_ALL = "SELECT _id,name,note_order FROM "
+	private static final String SELECT_ALL = "SELECT _id, name, note_order, create_datetime, modify_datetime FROM "
 			+ TABLE_NAME_NOTE + " order by note_order;";
 
 	public static List<Note> selectAll() {
-		Cursor c = db.rawQuery(SELECT_ALL,new String[]{});
+		Cursor c = db.rawQuery(SELECT_ALL, new String[] {});
 		List<Note> list = new ArrayList<>();
 		while (c.moveToNext()) {
-			Note note=new Note(c.getInt(0),c.getString(1),c.getLong(2));
+			Note note = new Note(c.getInt(0), c.getString(1), c.getLong(2));
 			list.add(note);
 		}
 		return list;
@@ -40,14 +40,36 @@ public class TblNoteDao {
 			+ TABLE_NAME_NOTE + "( name, note_order, create_datetime,"
 			+ "modify_datetime )" + " VALUES (?,?,?,?);";
 
-	public static long insert(Note note){
+	public static long insert(Note note) {
 		String dateStr = new SimpleDateFormat(DATE_PATTERN).format(new Date());
-		String[] param = { note.name,
-				dateStr, dateStr };
+		String[] param = { note.name, String.valueOf(note.order), dateStr,
+				dateStr };
 		db.execSQL(INSERT_TABLE_NOTE, param);
 		// ID‚ðŽæ“¾‚µ•Ô‚·
 		Cursor c = db.rawQuery("SELECT LAST_INSERT_ROWID();", null);
 		c.moveToNext();
 		return c.getLong(0);
+	}
+
+	public static String StaticToString() {
+		String getName = "PRAGMA table_info('" + TABLE_NAME_NOTE + "');";
+		Cursor c = db.rawQuery(getName, new String[] {});
+		StringBuilder sb = new StringBuilder();
+		while (c.moveToNext()) {
+			sb.append(c.getString(1) + ",");
+		}
+		sb.substring(0, sb.length() - 1);
+		sb.append(System.getProperty("line.separator"));
+		c = db.rawQuery(SELECT_ALL, new String[] {});
+		while (c.moveToNext()) {
+			sb.append(c.getString(0) + ",");
+			sb.append(c.getString(1) + ",");
+			sb.append(c.getString(2) + ",");
+			sb.append(c.getString(3) + ",");
+			sb.append(c.getString(4));
+			sb.append(System.getProperty("line.separator"));
+		}
+
+		return sb.toString();
 	}
 }

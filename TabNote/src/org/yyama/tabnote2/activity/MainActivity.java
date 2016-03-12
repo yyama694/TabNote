@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener,
 		} else if (id == R.id.tab_settings) {
 			showContextMenu(TabNote.tabs.get(TabNote.getActiveNum()));
 			return true;
+		} else if (id == R.id.table_debug) {
+			Intent intent = new Intent(this, TableDebugActivity.class);
+			startActivity(intent);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
